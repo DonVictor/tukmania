@@ -1,0 +1,26 @@
+TukUserBundle:
+    resource: "@TukUserBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+
+TukModelBundle:
+    resource: "@TukModelBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+
+TukMainBundle:
+    resource: "@TukMainBundle/Controller/"
+    type:     annotation
+    prefix:   /
+    
+_welcome:
+  pattern: /
+  defaults: { _controller: "TukMainBundle:Default:index" }
+
+
+# Internal routing configuration to handle ESI
+#_internal:
+#   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
+#   prefix:   /_internal
