@@ -1,0 +1,75 @@
+html, body {margin:auto; height: 100%}
+
+.tac { text-align: center; }
+.tal { text-align: left; }
+.tar { text-align: right; }
+.taj { text-align: justify; }
+
+.fl { float: left; }
+.fr { float: right; }
+
+.ttu { text-transform: uppercase; }
+.ttl { text-transform: lowercase; }
+.ttc { text-transform: capitalize; }
+
+.cfix:after {
+     content:".";
+     display:block;
+     height:0;
+    clear:both;
+    visibility:hidden
+}
+.cfix {
+    zoom:1
+}
+
+
+#login-register {
+	/*width: 1024px;*/
+	margin: auto;
+	padding: 0 5%;
+}
+#login-register #sidebar-logo {
+    border-bottom: 1px solid #000000;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #000000;
+    height: 90%;
+    position: fixed;
+    width: 200px;
+}
+#login-register #content {
+		display: block;
+    float: left;
+    height: 90%;
+    margin-left: 202px;
+    width: auto;
+}
+.content-child{
+	width: 300px;
+	margin-left: 20%;
+}
+
+.welcome {
+}
+.register-form {
+	margin: 10px;
+	width: 350px;
+}
+.register-form div div {
+	display: block;
+	min-height: 30px;
+}
+
+.register-form input,
+.register-form select,
+.register-form textarea,
+.register-form checkbox {
+}
+
+.register-form p {
+	display: block;
+}
+
+.register-form button {
+	display: block;
+}

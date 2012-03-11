@@ -18,7 +18,14 @@ TukMainBundle:
 _welcome:
   pattern: /
   defaults: { _controller: "TukMainBundle:Default:index" }
-
+  
+_register:
+  pattern: /register
+  defaults: { _controller: "TukUserBundle:Default:register" }
+  
+check:
+    pattern:  /check
+    defaults: { _controller: TukUserBundle:Default:check }
 
 # Internal routing configuration to handle ESI
 #_internal:

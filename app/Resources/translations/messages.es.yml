@@ -1,1 +1,20 @@
 Welcome to Tukmania: Bienvenidos a Tukmania
+Names: Nombres
+Last names: Apellidos
+Dni: Rut
+Birthday at: Fecha Nacimiento
+
+# Register
+Register: Regístrate
+Register me: Registrarme
+Registration: Registro
+Type the names: Escribe tus nombres
+Type the last names: Escribe tus apellidos
+Type the birthday at: Escribe tu fecha de nacimiento
+Type the password: Escribe tu contraseña
+Type the dni: Escribe tu rut
+Type the email: Escribe tu email
+You're new in Tuk?: Eres nuevo en Tuk?
+
+# Error's messages
+This rut is not valid: Este rut no es valido

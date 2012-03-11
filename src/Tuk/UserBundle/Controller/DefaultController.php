@@ -6,7 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\Security\Core\SecurityContext;
 use Tuk\ModelBundle\Entity\User;
+use Tuk\ModelBundle\Entity\Account;
 use Tuk\UserBundle\Form\UserType;
 
 /**
@@ -29,6 +33,20 @@ class DefaultController extends Controller
         $entities = $em->getRepository('TukModelBundle:User')->findAll();
 
         return array('entities' => $entities);
+    }
+    
+    /**
+     * Displays a form to create a new User entity.
+     *
+     * @Route("/check", name="check")
+     * @Template()
+     */
+    public function checkAction()
+    {
+       var_dump($this->get('security.context')->getToken());
+       
+       exit;
+       
     }
 
     /**
@@ -75,23 +93,33 @@ class DefaultController extends Controller
      * Creates a new User entity.
      *
      * @Route("/create", name="user_create")
-     * @Method("post")
-     * @Template("TukModelBundle:User:new.html.twig")
+     * @Method("POST")
      */
     public function createAction()
     {
-        $entity  = new User();
+        $User  = new User();
+        $Account = new Account();
         $request = $this->getRequest();
-        $form    = $this->createForm(new UserType(), $entity);
+        $form    = $this->createForm(new UserType(), $User);
+				
         $form->bindRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getEntityManager();
-            $em->persist($entity);
+            $account = $request->get('account');
+            $Account->setNick($account['email']);
+            $Account->setUsername($account['email']);
+            $Account->setPassword($account['password']);
+						$Account->setSalt(md5($account['email']));
+            $em->persist($User);
+            $User = $em->getRepository('TukModelBundle:User')->find($User->getId());
+            $Account->setUser($User);
+            $em->persist($Account);
             $em->flush();
-
-            return $this->redirect($this->generateUrl('user_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('_welcome'));
             
+        }else{
+
         }
 
         return array(
@@ -199,4 +227,51 @@ class DefaultController extends Controller
             ->getForm()
         ;
     }
+    
+    /**
+     * Displays a form to register a new User entity.
+     *
+     * @Route("/register", name="register")
+     * @Template()
+     */
+    public function registerAction()
+    {
+        $user = new User();
+        $form   = $this->createForm(new UserType(), $user);
+
+        return array(
+            'entity' => $user,
+            'form'   => $form->createView()
+        );
+    }
+
+    /**
+     * Creates a new User entity.
+     *
+     * @Route("/create_user", name="create_user")
+     * @Method("post")
+     * @Template("TukModelBundle:User:new.html.twig")
+     */
+    public function createUserAction()
+    {
+        $entity  = new User();
+        $request = $this->getRequest();
+        $form    = $this->createForm(new UserType(), $entity);
+        $form->bindRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getEntityManager();
+            $em->persist($entity);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('user_show', array('id' => $entity->getId())));
+            
+        }
+
+        return array(
+            'entity' => $entity,
+            'form'   => $form->createView()
+        );
+    }
+    
 }

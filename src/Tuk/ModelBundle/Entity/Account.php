@@ -3,6 +3,10 @@
 namespace Tuk\ModelBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\Security\Core\SecurityContext;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Tuk\ModelBundle\Entity\Account
@@ -22,12 +26,6 @@ class Account
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="User", inversedBy="userId")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     */
-    private $user_id;
-
-    /**
      * @var string $username
      *
      * @ORM\Column(name="username", type="string", length=255)
@@ -42,6 +40,13 @@ class Account
     private $password;
 
     /**
+     * @var string $salt
+     *
+     * @ORM\Column(name="salt", type="string", length=255)
+     */
+    private $salt;
+
+    /**
      * @var string $nick
      *
      * @ORM\Column(name="nick", type="string", length=255)
@@ -53,23 +58,30 @@ class Account
      *
      * @ORM\Column(name="active", type="integer")
      */
-    private $active;
+    private $active = 1;
 
     /**
      * @var datetime $created_at
-     *
-     * @ORM\Column(name="created_at", type="datetime")
+     * @ORM\Column(name="created_at", type="datetime", nullable="true")
      */
     private $created_at;
 
     /**
      * @var datetime $updated_at
-     *
-     * @ORM\Column(name="updated_at", type="datetime")
+     * @ORM\Column(name="updated_at", type="datetime", nullable="true")
      */
     private $updated_at;
 
+	  /**
+	   * @ORM\OneToOne(targetEntity="User", inversedBy="Account", cascade={"all"})
+	   * @ORM\JoinColumn(name="user", referencedColumnName="id", nullable="true")
+	   */
+    private $user;
 
+
+		function __construct(){
+
+		}
     /**
      * Get id
      *
@@ -107,6 +119,11 @@ class Account
      */
     public function setPassword($password)
     {
+    		/*$Account = new Account();
+				$factory = $this->container->get('security.encoder_factory');
+				$encoder = $factory->getEncoder($Account);
+				$password = $encoder->encodePassword($password, 'blabla');*/
+
         $this->password = $password;
     }
 
@@ -118,6 +135,26 @@ class Account
     public function getPassword()
     {
         return $this->password;
+    }
+
+    /**
+     * Set salt
+     *
+     * @param string $salt
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+    }
+
+    /**
+     * Get salt
+     *
+     * @return string 
+     */
+    public function getSalt()
+    {
+        return $this->salt;
     }
 
     /**
@@ -145,7 +182,7 @@ class Account
      *
      * @param integer $active
      */
-    public function setActive($active)
+    public function setActive($active = 1)
     {
         $this->active = $active;
     }
@@ -198,5 +235,24 @@ class Account
     public function getUpdatedAt()
     {
         return $this->updated_at;
+    }
+
+    /**
+     * Set user
+     *
+     * @param integer $user
+     */
+    public function setUser($updatedAt)
+    {
+        $this->updated_at = $updatedAt;
+    }
+    /**
+     * Get user
+     *
+     * @return integer 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

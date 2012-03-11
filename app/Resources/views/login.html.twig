@@ -1,0 +1,39 @@
+{% import "::macros.html.twig" as __ %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{% block title %}Registrate{% endblock %}</title>
+                
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+        
+				{% javascripts '@TukMainBundle/Resources/public/js/src/*' filter='?yui_js' %}
+					<script src="{{ asset_url }}"></script>
+				{% endjavascripts %}
+				
+		    <!-- custom javascripts, commonly -->
+		    {% block javascripts %}{% endblock %}
+				
+				<!-- common styles (bundles), commonly it's one less file -->
+		    {% stylesheets '@TukMainBundle/Resources/public/css/src/*' filter='?less,?yui_css' %}
+		    	<link rel="stylesheet" href="{{ asset_url }}" />
+		    {% endstylesheets %}
+		    
+		    {% stylesheets '@TukMainBundle/Resources/public/css/less/*' filter='?less,?yui_css' %}
+		    	<link rel="stylesheet" href="{{ asset_url }}" />
+		    {% endstylesheets %}
+				<!-- json languages -->
+		    <script>var translate = {% render "TukMainBundle:Default:translate" %};</script>
+				
+    </head>
+    <body>
+    <div id="login-register" class="cfix">
+    	<div id="sidebar-logo">
+    	</div>
+    	<div id="content">
+        {% block content %}{% endblock content %}
+      </div>
+		</div>
+    </body>
+</html>

@@ -53,9 +53,19 @@ class User
     /**
      * @var integer $location_id
      *
-     * @ORM\Column(name="location_id", type="integer")
+     * @ORM\Column(name="location_id", type="integer", nullable="true")
      */
     private $location_id;
+     
+
+  /**
+   * Constructor
+   * Inicializa atributos
+   */
+	  public function __construct()
+	  {
+	  	$this->location_id = 1;
+	  }
 
 
     /**
@@ -167,4 +177,5 @@ class User
     {
         return $this->location_id;
     }
+
 }

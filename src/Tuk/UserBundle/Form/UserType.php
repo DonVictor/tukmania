@@ -19,9 +19,13 @@ class UserType extends AbstractType
         $builder
             ->add('names')
             ->add('last_names')
-            ->add('dni')
-            ->add('birthday_at')
-            ->add('location_id')
+            ->add('dni')            
+    				->add('birthday_at', 'date', array(
+                'widget' => 'single_text',
+                'format' => 'yyyy-mm-dd',
+                'required' => false
+    				))
+            ->add('location_id', 'hidden')
         ;
     }
 

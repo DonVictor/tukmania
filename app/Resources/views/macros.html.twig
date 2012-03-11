@@ -1,0 +1,11 @@
+{% macro tr( text, params ) %}{% if params != '' %}{{-text|trans(params)|raw-}}{% else %}{{-text|trans|raw-}}{% endif %}{% endmacro %}
+{% macro dateformat( value ) %}
+	{% if value != null %}
+		{{ _self.trans(_self.trans('format_text_date'), {'%day%' : value|date('j'), '%month%' : _self.trans(value|date('F')), '%year%' : value|date('Y')}) }}
+	{% endif %}
+{% endmacro %}
+{% macro formatDmy( value ) %}
+	{% if value|default('') != '' %}
+		{{ value|date('d/m/Y')}}
+	{% endif %}
+{% endmacro %}

@@ -1,0 +1,73 @@
+{% extends "::login.html.twig" %}
+
+{% block javascripts %}
+	{% javascripts '@TukUserBundle/Resources/public/js/*' filter='?yui_js' %}
+            <script src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+{% endblock %}
+
+{% block content %}
+<div class="welcome content-child">
+<p>
+	<span class="ttu cfix">Bienvenidos a Tukmania.</span>
+	<span class="cfix">Te invitamos a participar y ganar los tuk que mas te gusten, solo tienes que hacer click.</span>
+</p>
+</div>
+
+<div id="login-home" class="content-child">
+	<form action="{{ path('check') }}" method="post" class="login-form validate-form">
+		<div>
+			<input id="login_username" type="text" name="account[email]" required="required" 
+			maxlength="255" placeholder="Escribe tu email" data-title="Escribe tu email">
+		</div>
+		<div>
+			<input id="login_username" type="password" name="account[password]" required="required" 
+			maxlength="255" placeholder="Escribe tu contraseña" data-title="Escribe tu contraseña">
+		</div>
+		<p>
+			<button type="submit">{{ __.tr('Login') }}</button>
+		</p>
+	</form>
+</div>
+
+<div class="register content-child">
+	<div class="are-new">
+		{{ __.tr("You're new in Tuk?") }}
+		<span class="ttu">{{ __.tr("You're new in Tuk?") }}</span>
+	</div>
+	<form action="{{ path('user_create') }}" method="post" {{ form_enctype(form) }} class="register-form validate-form">
+		<div>
+		  {{ form_errors(form.names) }}
+		  {{ form_widget(form.names, { 'attr': {'placeholder': __.tr('Type the names'), 
+		  	'data-title': __.tr('Type the names'), 'class': 'name'} }) }}
+	  </div>
+	  <div>
+			{{ form_errors(form.last_names) }}
+		  {{ form_widget(form.last_names, { 'attr': {'placeholder': __.tr('Type the last names'), 
+		  	'data-title': __.tr('Type the last names'), 'class': 'name'} }) }}
+	  </div>
+	  <div>
+			{{ form_errors(form.dni) }}
+		  {{ form_widget(form.dni, { 'attr': {'placeholder': __.tr('Type the dni'), 
+		  	'data-title': __.tr('Type the dni'), 'class': 'rut'} }) }}
+	  </div>
+	  <div>
+	  	<input type="text" data-title="{{__.tr('Type the email')}}" placeholder="{{__.tr('Type the email')}}" maxlength="255" required="required" name="account[email]" id="account_email">
+	  </div>
+	  <div>
+	  <div>
+	  	<input type="password" data-title="{{__.tr('Type the password')}}" placeholder="{{__.tr('Type the password')}}" maxlength="255" required="required" name="account[password]" id="account_password">
+	  </div>
+	  <div>
+			{{ form_errors(form.birthday_at) }}
+		  {{ form_widget(form.birthday_at, { 'attr': {'placeholder': 'AAAA/MM/DD', 
+		  	'data-title': __.tr('Type the birthday at'), 'class': 'datepicker'} }) }}
+	  </div>
+	
+	        {{ form_rest(form) }}
+	    <p>
+	        <button type="submit">{{ __.tr('Register me') }}</button>
+	    </p>
+	</form>
+</div>
+{% endblock content %}

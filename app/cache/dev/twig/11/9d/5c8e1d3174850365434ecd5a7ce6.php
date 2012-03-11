@@ -8,6 +8,7 @@ class __TwigTemplate_119d5c8e1d3174850365434ecd5a7ce6 extends Twig_Template
         parent::__construct($env);
 
         $this->blocks = array(
+            'title' => array($this, 'block_title'),
             'content' => array($this, 'block_content'),
         );
     }
@@ -22,10 +23,18 @@ class __TwigTemplate_119d5c8e1d3174850365434ecd5a7ce6 extends Twig_Template
         $this->getParent($context)->display($context, array_merge($this->blocks, $blocks));
     }
 
-    // line 3
+    // line 2
+    public function block_title($context, array $blocks = array())
+    {
+        // line 3
+        echo "\tTukmania!
+";
+    }
+
+    // line 6
     public function block_content($context, array $blocks = array())
     {
-        // line 4
+        // line 7
         echo "\t";
         echo twig_escape_filter($this->env, $this->getContext($context, "name"), "html", null, true);
         echo "!
